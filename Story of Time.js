@@ -5,6 +5,7 @@
  */
 // -------------------- Preprocessing --------------------
 Log.d("- preprocessing......")
+
 const bot = BotManager.getCurrentBot();
 const koine = require('koine/index');
 koine.init(this);
@@ -16,21 +17,38 @@ Log.d("cleared message listeners");
 
 const SD = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
 const PATH = SD + '/' + bot.getName();
+
+String.prototype.format = function (args) {
+    return this.replace(/{(.*?)}/g, (_, p1) => args[p1]);
+};
+
 Log.d(" > completed.");
 // -------------------- Preprocessing --------------------
 
 
 // -------------------- Database --------------------
 Log.d("- loading database......");
+
 const DB = new Directory(PATH);
 DB.load();
+
 Log.d(" > completed.")
 // -------------------- Database --------------------
 
 
+// -------------------- Structure --------------------
+
+// -------------------- Structure --------------------
+
+
+// -------------------- UI --------------------
+const { AccountManager, UIManager, guest_cmds } = require('rpg/ui/index');
+// -------------------- UI --------------------
+
+
 // -------------------- Operator --------------------
 Log.d("- setting for operating......");
-const admin = DB.read('admin.json');
+const admin = DB.read('system/admin.json');
 
 const evaluate = require('util/evaluate');
 admin.hash.forEach(v => evaluate.admin.push(v));
@@ -47,13 +65,3 @@ bot.addListener(
 
 Log.d(" > completed.");
 // -------------------- Operator --------------------
-
-
-// -------------------- Structure --------------------
-
-// -------------------- Structure --------------------
-
-
-// -------------------- UI --------------------
-
-// -------------------- UI --------------------

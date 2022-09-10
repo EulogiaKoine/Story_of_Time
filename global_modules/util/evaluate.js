@@ -1,6 +1,6 @@
 module.exports = (function(){
 
-const _nanoTime = System.nanoTime;
+const _nanoTime = java.lang.System.nanoTime;
 const _prefix = ['e'];
 const _admin = [];
 
